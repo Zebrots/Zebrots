@@ -11,11 +11,9 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
-    "angular": "^1.6.3",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "jquery": "^3.2.1",
-    "mongoose": "^4.8.6",
     "mysql": "^2.13.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
@@ -26,12 +24,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hackreactor/hrsf77-mvp-starter.git"
+    "url": "git+https://github.com/Zebrots/Zebrots.git"
   },
   "author": "KKR",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hackreactor/hrsf77-mvp-starter/issues"
+    "url": "https://github.com/Zebrots/Zebrots/issues"
   },
-  "homepage": "https://github.com/hackreactor/hrsf77-mvp-starter#readme"
+  "homepage": "https://github.com/Zebrots/Zebrots#readme"
 }
