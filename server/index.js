@@ -8,8 +8,7 @@ app.set('port', (process.env.PORT || 3000));
 
 app.use(bodyParser.json()); // augment the req with body property which will have json from the post's body
 app.use(bodyParser.urlencoded({ extended: false }))
-// app.use(express.static(__dirname + '../react-client/dist'));
-app.use('/static', express.static(path.join(__dirname, '../react-client/dist')))
+app.use(express.static(__dirname + '/../react-client/dist'));
 // app.use(express.static('public'))
 
 
