@@ -1,10 +1,12 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var db = require('../database-mysql/queries');
+// var db = require('../database-mysql/queries');
 
 var app = express();
 
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.set('port', (process.env.PORT || 3000));
+
+app.use(express.static(__dirname + '../react-client/dist'));
 app.use(bodyParser.json()); // augment the req with body property which will have json from the post's body
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -37,6 +39,6 @@ app.get('/', function (req, res) {
 //     });
 // });
 
-app.listen(3000, function() {
-  console.log('listening on port 3000!');
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
 });
