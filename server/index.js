@@ -6,13 +6,10 @@ var app = express();
 
 app.set('port', (process.env.PORT || 3000));
 
-app.use(express.static(__dirname + '../react-client/dist'));
 app.use(bodyParser.json()); // augment the req with body property which will have json from the post's body
 app.use(bodyParser.urlencoded({ extended: false }))
-
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-})
+app.use(express.static(__dirname + '../react-client/dist'));
+// app.use(express.static('public'))
 
 
 app.get('/users', function (req, res) {
