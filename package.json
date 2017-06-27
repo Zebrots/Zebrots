@@ -19,6 +19,7 @@
     "process-nextick-args": "^1.0.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "semver": "^5.3.0",
     "util-deprecate": "^1.0.2",
     "webpack": "^2.6.1"
   },
