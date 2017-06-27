@@ -15,29 +15,29 @@ app.get('/', function (req, res) {
 })
 
 
-// app.get('/users', function (req, res) {
-//   db.selectAll()
-//     .then(results => {
-//       console.log('these are the results from /users get', results);
-//       res.status(200).end(JSON.stringify(results));
-//     })
-//     .catch(err => {
-//       console.error('we have a error ', err);
-//       res.status(500).end();
-//     });
-// });
-//
-// app.post('/users', function (req, res) {
-//   db.addUser(req.body)
-//     .then(results => {
-//       console.log('these are the results from /users post ', results);
-//       res.status(201).end();
-//     })
-//     .catch(err => {
-//       console.error('we have a error ', err);
-//       res.status(500).end();
-//     });
-// });
+app.get('/users', function (req, res) {
+  db.selectAll()
+    .then(results => {
+      console.log('these are the results from /users get', results);
+      res.status(200).end(JSON.stringify(results));
+    })
+    .catch(err => {
+      console.error('we have a error ', err);
+      res.status(500).end();
+    });
+});
+
+app.post('/users', function (req, res) {
+  db.addUser(req.body)
+    .then(results => {
+      console.log('these are the results from /users post ', results);
+      res.status(201).end();
+    })
+    .catch(err => {
+      console.error('we have a error ', err);
+      res.status(500).end();
+    });
+});
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
