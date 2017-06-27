@@ -6,7 +6,7 @@ var app = express();
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.json()); // augment the req with body property which will have json from the post's body
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/users', function (req, res) {
   db.selectAll()
