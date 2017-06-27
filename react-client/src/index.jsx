@@ -56,10 +56,13 @@ class App extends React.Component {
   }
 
   render () {
-    return (<div>
-      <h1>users</h1>
-      <Users users={this.state.users}  addUser={this.addUser.bind(this)} />
-    </div>)
+    return (
+      <div>
+        <h1>Gravitas</h1>
+        <h3>Users</h3>
+        <Users users={this.state.users} addUser={this.addUser.bind(this)} />
+      </div>
+    )
   }
 }
 
