@@ -33,3 +33,8 @@ bower_components/
 # Local development
 *.env
 .env
+
+#Kurt's editor's project files:
+*.prj
+*.pui
+
