@@ -4,6 +4,9 @@ import $ from 'jquery';
 import Users from './components/Users.jsx';
 import Welcome from './components/Welcome.jsx';
 import Takeaways from './components/Takeaways.jsx';
+import ModalView from './components/ModalView.jsx';
+import Topics from './components/Topics.jsx';
+
 
 /*
 var takeaways = [
@@ -20,10 +23,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       users: [],
+      topics: [],
       session: {},
-//      takeaways : takeaways
+      showModal: false,
+      inviteSubmitted: false,
       takeaways : [],
-      displayMode : 'takeaways',
+      displayMode : 'takeaways'
     }
   }
 
@@ -43,28 +48,18 @@ class App extends React.Component {
     window.open(`https://github.com/login/oauth/authorize?client_id=${clientId}&scope=${scopes}`, '_self');
   }
 
-  addUser() {
-    let data = {name: 'beth', email: 'beth@gmail.com', gitHub: '14hj3kl3h4k1h4k3'};
-
-    this.hitServer('/users', data, 'POST')
-      .then(results => {
-        console.log('these are the results ', data);
-        this.displayUsers();
-      })
-      .catch(err => {
-        console.error('we have an error ', err);
-      });
-  }
-
   getUserSession() { // get a user if they have a session
-    // debugger;
     this.hitServer('/session')
-      .then(session => {
-        if(session.uid) {
+      .then(userObj => {
+        if(userObj.user.length) {
           this.setState({
-            session: session
+            session: userObj.user[0]
           });
         }
+      })
+      .catch(err => {
+        debugger;
+        console.error('we have an error ', err);
       });
   }
 
@@ -100,12 +95,18 @@ class App extends React.Component {
       console.log('TAKEAWAYS RETURNED FROM SERVER = ', takeaways);
       this.setState({ // INVOKING setState HERE AUTO-FORCES AN INVOCATION OF THE 'render' METHOD
         takeaways : takeaways,
-        displayMode : 'takeaways',
+        displayMode : 'takeaways'
       });
     })
     .catch(err => {
       console.error('ERROR RETRIEVING TAKEAWAYS: ', err);
     });
+  }
+
+  displayTopics() {
+    this.setState({
+      displayMode: 'topics'
+    })
   }
 
   componentWillMount() { // A lifecycle event that each component has (before render)
@@ -114,34 +115,76 @@ class App extends React.Component {
   componentDidMount() { // A lifecycle event that each component has (after render)
     // Render has already occurred; Get users from database.
     this.getUserSession();
-    this.displayUsers();
+    this.display('/users');
+    this.display('/topics')
+  }
 
+  showModal() {
+    this.setState({showModal: true});
+  }
+
+  closeModal() {
+    this.setState({
+      showModal: false,
+      inviteSubmitted: false
+    });
+  }
+
+  post(event) { // post a topic
+    event.preventDefault();
+    let topic = event.currentTarget.form.firstChild.value;
+    if(!topic.length) {
+      alert("Did you forget something?_O");
+      return;
+    }
+
+    // figure out sanitation
+    this.hitServer('/topics', {topic}, 'POST')
+      .then(() => {
+        this.setState({inviteSubmitted: true});
+        this.display('/topics');
+      })
+      .catch(err => {
+        console.log('Error posting a topic ', err);
+      });
+  }
+
+  display(path) {
+    this.hitServer(path)
+      .then(stateObj => { // expect stateObj to be {property: value}
+        this.setState(stateObj);
+      })
+      .catch(err => {
+        debugger;
+        console.error('error displaying state: ', err);
+      });
   }
 
   render () {
-    if(this.state.displayMode === 'invites') {
     return (<div>
+      <button onClick={this.showModal.bind(this)}>Post</button>
+      <button onClick={this.displayTopics.bind(this)}> Display Topics</button>
+      <button onClick={this.displayTakeaways.bind(this)}> Display Takeaways </button>
       <h1>Gravitas</h1>
+      <ModalView
+        show={this.state.showModal}
+        closeMethod={this.closeModal.bind(this)}
+        post={this.post.bind(this)}
+        submitted={this.state.inviteSubmitted}
+      />
       {Object.keys(this.state.session).length > 0 &&
       <Welcome session={this.state.session} /> }
       {Object.keys(this.state.session).length === 0 &&
       <button onClick={this.gitHubSignIn.bind(this)}> Sign in with GitHub</button>}
-      {Object.keys(this.state.session).length === 0 &&
-      <button onClick={this.displayTakeaways.bind(this)}> Display Takeaways </button>}
+
+      {(this.state.topics.length > 0 && this.state.displayMode === 'topics')
+        && <Topics topics={this.state.topics} /> }
+
+      {(this.state.takeaways.length > 0 && this.state.displayMode === 'takeaways')
+        && <Takeaways takeaways={this.state.takeaways} createTakeaway={this.createTakeaway.bind(this)} />}
+
       <Users users={this.state.users}  />
     </div>)
-    } else if(this.state.displayMode === 'takeaways') {
-    return (<div>
-      <h1>Gravitas</h1>
-      {Object.keys(this.state.session).length > 0 &&
-      <Welcome session={this.state.session} /> }
-      {Object.keys(this.state.session).length === 0 &&
-      <button onClick={this.gitHubSignIn.bind(this)}> Sign in with GitHub</button>}
-      {Object.keys(this.state.session).length === 0 &&
-      <button onClick={this.displayTakeaways.bind(this)}> Display Takeaways </button>}
-      <Takeaways takeaways={this.state.takeaways} createTakeaway={this.createTakeaway.bind(this)} />
-    </div>)
-    }
   }
 }
 

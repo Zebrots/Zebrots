@@ -12,8 +12,12 @@ var queryDatabase = function(query) {
   });
 };
 
-var selectAll = function() {
+var selectAllUsers = function() {
   return queryDatabase('SELECT handle, email, avatar_url FROM users');
+};
+
+var selectAll = function(table) {
+  return queryDatabase(`SELECT * FROM ${table}`);
 };
 
 var createUser = function(user) {
@@ -22,7 +26,12 @@ var createUser = function(user) {
 };
 
 var selectUser = function(attribute) {
-  return queryDatabase(`SELECT * FROM users WHERE ${attribute.field} = '${attribute.value}'`);
+  return queryDatabase(`SELECT id, email, handle, avatar_url FROM users WHERE ${attribute.field} = '${attribute.value}'`);
+};
+
+var createTopic = function(topic, userId) {
+  return queryDatabase(`INSERT INTO topics (user_q_id, topic)
+                        VALUES (${userId}, '${topic}')`);
 };
 
 var selectAllTakeaways = function() {
@@ -34,12 +43,13 @@ var createTakeaway = function(takeaway) {
                         VALUES (null, '${takeaway.takeaway}', '${takeaway.user_id}')`);
 };
 
-
 module.exports = {
+  selectAllUsers: selectAllUsers,
   selectAll: selectAll,
   selectUser: selectUser,
   createUser: createUser,
+  createTopic: createTopic,
   selectAllTakeaways: selectAllTakeaways,
-  createTakeaway: createTakeaway,
+  createTakeaway: createTakeaway
 };
 

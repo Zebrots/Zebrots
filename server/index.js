@@ -1,16 +1,19 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var db = require('../database-mysql/queries');
-var gitHub = require('../server/github.config');
+var gitHub = require('./github.config');
 var promise = require('bluebird');
 var request = promise.promisifyAll(require('request'));
 var queryString = require('querystring');
 var path = require('path');
 var fs = require('fs');
+var security = require('./helpers/security');
+var dbHelper = require('./helpers/db');
 
 
 var app = express();
-app.use(express.static(__dirname + '/../react-client/dist')); // if after session, causes err-content-length-mismatch?? 
+app.use(express.static(__dirname + '/../react-client/dist')); // if after session, causes err-content-length-mismatch??
+
 
 var morgan = require('morgan'); // morgan is used for logging. See access.log in the current directory
 var accessLogStream = fs.createWriteStream(
@@ -31,14 +34,6 @@ app.use(session({
 
 app.use(bodyParser.json()); // augment the req with body property which will have json from the post's body
 app.use(bodyParser.urlencoded({ extended: false }));
-
-// ==================================================================================//
-
-app.get('/redirect', function (req, res) {
-
-  res.redirect('/');
-
-});
 
 app.get('/login*', function (req, res) {
 
@@ -109,53 +104,35 @@ app.get('/login*', function (req, res) {
 
 app.get('/session', function (req, res) {
 
-  let userSession = {uid: req.session.uid || null};
-  if (!userSession.uid) {
-    res.status(200).end(JSON.stringify(userSession));
-  } else {
-    db.selectUser({field: 'id', value: userSession.uid})
-      .then(user => {
-        if(user.length) { // user found; set the handle
-          userSession.handle = user[0].handle;
-        } else { // user not found in db; clear session id
-          userSession.uid = null;
-        }
-        res.send(JSON.stringify(userSession));
-      })
-      .catch(err => {
-        console.error('we have a error ', err);
-        res.status(500).end();
-      });
+  if (!req.session.uid) { // uid starts at 1
+    res.status(200).end(JSON.stringify([]));
+    return;
   }
+
+  dbHelper.queryDB('user', db.selectUser.bind(this, {field: 'id', value: req.session.uid}), res);
+});
+
+app.post('/topics', function (req, res) {
+
+  if(!security.hasSession(req)) {
+    res.status(400).end('Must sign in to post');
+    return;
+  }
+
+  dbHelper.queryDB('topics', db.createTopic.bind(this, req.body.topic, req.session.uid), res, 'POST');
+});
+
+app.get('/topics', function (req, res) {
+  dbHelper.queryDB('topics', db.selectAll.bind(this, 'topics'), res)
 });
 
 app.get('/users', function (req, res) {
-
-  console.log('users get');
-  db.selectAll()
-    .then(results => {
-      console.log('these are the results from /users get', results);
-      res.status(200).end(JSON.stringify(results));
-    })
-    .catch(err => {
-      console.error('we have an error ', err);
-      res.status(500).end();
-    });
+  dbHelper.queryDB('users', db.selectAllUsers, res);
 });
 
 app.post('/users', function (req, res) {
-  console.log('users post');
-  db.addUser(req.body)
-    .then(results => {
-      console.log('these are the results from /users post ', results);
-      res.status(201).end();
-    })
-    .catch(err => {
-      console.error('we have an error ', err);
-      res.status(500).end();
-    });
+  dbHelper.queryDB('users', db.addUser.bind(this, req.body), res, 'POST');
 });
-
 
 app.get('/takeaways', function (req, res) {
 
