@@ -8,16 +8,6 @@ import ModalView from './components/ModalView.jsx';
 import Topics from './components/Topics.jsx';
 
 
-/*
-var takeaways = [
-  {id : 1, usernameQ : 'Kurt',   usernameA : 'Kamie',  date : '06/21/17', topic : 'Why are frameworks so burdensome', takeaway : 'Adulting is hard.'},
-  {id : 2, usernameQ : 'Kamie',  usernameA : 'Azmeer', date : '06/23/17', topic : 'Promisifying',                     takeaway : 'Don\'t just *do* something, *SIT* there!'},
-  {id : 3, usernameQ : 'Reuben', usernameA : 'David',  date : '06/25/17', topic : 'Is Angular God?',                  takeaway : 'Apparently \'i\' is just an *imaginary* number.'},
-  {id : 4, usernameQ : 'Ben',    usernameA : 'Daniel', date : '06/28/17', topic : 'Breaking Promises',                takeaway : 'Now we know *why* there is a no-open-drink-container rule.'},
-  {id : 5, usernameQ : 'Saikal', usernameA : 'Saloni', date : '06/29/17', topic : 'Where are my car keys?',           takeaway : 'Who knew semi-colons and colons were different things??'},
-  ];
-*/
-
 class App extends React.Component {
   constructor(props) {
     super(props);
