@@ -67,7 +67,13 @@ class App extends React.Component {
   }
 
   createTakeaway() {
-    let data = {user_id : '10', takeaway : 'We should have practiced writing Mocha tests...'};
+    let data = {user_id : 'null',
+      topic : 'Why do tests suck so much?',
+      date : '1997-12-25 12:31:56',
+      takeaway : 'We should have practiced writing Mocha tests...',
+      user_id : 2, 
+      user_A_id: 1,
+      };
 
     this.hitServer('/takeaways', data, 'POST')
       .then(results => {
