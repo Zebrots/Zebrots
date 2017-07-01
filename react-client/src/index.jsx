@@ -6,6 +6,7 @@ import Welcome from './components/Welcome.jsx';
 import Takeaways from './components/Takeaways.jsx';
 import ModalView from './components/ModalView.jsx';
 import Topics from './components/Topics.jsx';
+import Nav from './components/Nav.jsx';
 
 
 /*
@@ -30,6 +31,13 @@ class App extends React.Component {
       takeaways : [],
       displayMode : 'takeaways'
     }
+    this.showModal = this.showModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.post = this.post.bind(this);
+    this.displayTopics = this.displayTopics.bind(this);
+    this.createTakeaway = this.createTakeaway.bind(this)
+    this.displayTakeaways = this.displayTakeaways.bind(this);
+    this.gitHubSignIn = this.gitHubSignIn.bind(this);
   }
 
   hitServer(url, data, method = 'GET', dataType = 'json') {
@@ -58,7 +66,6 @@ class App extends React.Component {
         }
       })
       .catch(err => {
-        debugger;
         console.error('we have an error ', err);
       });
   }
@@ -155,36 +162,43 @@ class App extends React.Component {
         this.setState(stateObj);
       })
       .catch(err => {
-        debugger;
         console.error('error displaying state: ', err);
       });
   }
 
   render () {
-    return (<div>
-      <button onClick={this.showModal.bind(this)}>Post</button>
-      <button onClick={this.displayTopics.bind(this)}> Display Topics</button>
-      <button onClick={this.displayTakeaways.bind(this)}> Display Takeaways </button>
-      <h1>Gravitas</h1>
-      <ModalView
-        show={this.state.showModal}
-        closeMethod={this.closeModal.bind(this)}
-        post={this.post.bind(this)}
-        submitted={this.state.inviteSubmitted}
-      />
-      {Object.keys(this.state.session).length > 0 &&
-      <Welcome session={this.state.session} /> }
-      {Object.keys(this.state.session).length === 0 &&
-      <button onClick={this.gitHubSignIn.bind(this)}> Sign in with GitHub</button>}
+    return (
+      <div>
+        <div className="mdl-layout mdl-js-layout">
+          <header className="layout-transparent mdl-layout__header mdl-layout__header--waterfall">
+              <Nav nav={this}/>
+          </header>
+          <div className="mdl-layout__drawer">
+            <Nav nav={this}/>
+          </div>
+          <main className="mdl-layout__content">
+            <div className="mdl-grid">
+            <ModalView
+              show={this.state.showModal}
+              closeMethod={this.closeModal}
+              post={this.post}
+              submitted={this.state.inviteSubmitted} />
+              {Object.keys(this.state.session).length > 0 &&
+                <Welcome session={this.state.session} /> }
 
-      {(this.state.topics.length > 0 && this.state.displayMode === 'topics')
-        && <Topics topics={this.state.topics} /> }
+                {(this.state.topics.length > 0 && this.state.displayMode === 'topics')
+                && <Topics topics={this.state.topics} /> }
 
-      {(this.state.takeaways.length > 0 && this.state.displayMode === 'takeaways')
-        && <Takeaways takeaways={this.state.takeaways} createTakeaway={this.createTakeaway.bind(this)} />}
+                {(this.state.takeaways.length > 0 && this.state.displayMode === 'takeaways')
+                && <Takeaways takeaways={this.state.takeaways} createTakeaway={this.createTakeaway} />}
 
-      <Users users={this.state.users}  />
-    </div>)
+                <Users users={this.state.users}  />
+            </div>
+          </main>
+        </div>
+
+      </div>
+    )
   }
 }
 
