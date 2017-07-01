@@ -40,13 +40,7 @@ var createTopic = function(topic, userId) {
 
 
 var selectAllTakeaways = function() {
-  queryDatabase('DROP TABLE IF EXISTS `TAKEAWAYS_QUERY`');
-
-  queryDatabase('CREATE TABLE `TAKEAWAYS_QUERY` (`id` INTEGER NOT NULL AUTO_INCREMENT, `topic` VARCHAR(50) NOT NULL, `date` DATETIME NOT NULL, `takeaway` VARCHAR(255) NOT NULL, `inviter` VARCHAR(30) NOT NULL, `collaborator` VARCHAR(30) NULL, PRIMARY KEY (`id`))');
-
-  queryDatabase('INSERT INTO takeaways_query SELECT null, takeaways.topic, takeaways.date, takeaways.takeaway, users.handle, (SELECT users.handle FROM users WHERE users.id=takeaways.user_A_id) FROM takeaways INNER JOIN users ON takeaways.user_id=users.id;');
-
-  return queryDatabase('SELECT * FROM takeaways_query')
+  return queryDatabase('SELECT null, takeaways.topic, takeaways.date, takeaways.takeaway, users.handle AS inviter, (SELECT users.handle FROM users WHERE users.id=takeaways.user_A_id) AS collaborator FROM takeaways INNER JOIN users ON takeaways.user_id=users.id;');
 };
 
 
@@ -64,6 +58,7 @@ module.exports = {
   selectAllTakeaways: selectAllTakeaways,
   createTakeaway: createTakeaway
 };
+
 
 /*
 
