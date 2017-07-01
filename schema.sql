@@ -63,7 +63,7 @@ CREATE TABLE `TAKEAWAYS` (
   `date` DATETIME NOT NULL,
   `takeaway` VARCHAR(255) NOT NULL,
   `user_id` INTEGER NOT NULL,
-  `user_A_id` INTEGER NOT NULL,
+  `user_a_id` INTEGER NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -127,28 +127,19 @@ CREATE TABLE `TAGS_JOIN_TOPICS` (
 -- Foreign Keys
 -- ---
 
-<<<<<<< HEAD
 ALTER TABLE `TOPICS` ADD FOREIGN KEY (user_q_id) REFERENCES `USERS` (`id`);
 ALTER TABLE `TOPICS` ADD FOREIGN KEY (user_a_id) REFERENCES `USERS` (`id`);
-=======
-ALTER TABLE `TAKEAWAYS` ADD FOREIGN KEY (user_A_id) REFERENCES `USERS` (`id`);
-
-ALTER TABLE `TOPICS` ADD FOREIGN KEY (user_A_id) REFERENCES `USERS` (`id`);
->>>>>>> Add more test data
 ALTER TABLE `TOPICS` ADD FOREIGN KEY (takeaway_id) REFERENCES `TAKEAWAYS` (`id`);
+
+ALTER TABLE `TAKEAWAYS` ADD FOREIGN KEY (user_a_id) REFERENCES `USERS` (`id`);
 
 ALTER TABLE `EVENTS` ADD FOREIGN KEY (user_id) REFERENCES `USERS` (`id`);
 
 ALTER TABLE `RSVP` ADD FOREIGN KEY (event_id) REFERENCES `EVENTS` (`id`);
 ALTER TABLE `RSVP` ADD FOREIGN KEY (user_id) REFERENCES `USERS` (`id`);
-<<<<<<< HEAD
-ALTER TABLE `TAGS_JOIN_TOPICS` ADD FOREIGN KEY (tag_id) REFERENCES `TAGS` (`id`);
-ALTER TABLE `TAGS_JOIN_TOPICS` ADD FOREIGN KEY (invite_id) REFERENCES `TOPICS` (`id`);
-=======
 
 ALTER TABLE `TAGS_JOIN_TOPICS` ADD FOREIGN KEY (tag_id) REFERENCES `TAGS` (`id`);
 ALTER TABLE `TAGS_JOIN_TOPICS` ADD FOREIGN KEY (topic_id) REFERENCES `TOPICS` (`id`);
->>>>>>> Add more test data
 
 -- ---
 -- Table Properties
@@ -174,11 +165,11 @@ INSERT INTO `USERS` (`id`,`handle`,`email`,`avatar_url`,`github_token`) VALUES
 INSERT INTO `USERS` (`id`,`handle`,`email`,`avatar_url`,`github_token`) VALUES
 (3,'nubered','tradeelf@gmail.com','https://avatars0.githubusercontent.com/u/3600698?v=3&s=460','TOKEN_REUBEN');
 
-INSERT INTO `TOPICS` (`id`,`user_id`,`topic`,`user_A_id`,`takeaway_id`,`timestamp`) VALUES
+INSERT INTO `TOPICS` (`id`,`user_q_id`,`topic`,`user_a_id`,`takeaway_id`,`timestamp`) VALUES
 (1,2,'Forgot how to spell my name...',null,null,'1970-01-01 00:00:01');
-INSERT INTO `TOPICS` (`id`,`user_id`,`topic`,`user_A_id`,`takeaway_id`,`timestamp`) VALUES
+INSERT INTO `TOPICS` (`id`,`user_q_id`,`topic`,`user_a_id`,`takeaway_id`,`timestamp`) VALUES
 (2,1,'How can I square the circle?',null,null,'2017-06-30 14:23:42');
-INSERT INTO `TOPICS` (`id`,`user_id`,`topic`,`user_A_id`,`takeaway_id`,`timestamp`) VALUES
+INSERT INTO `TOPICS` (`id`,`user_q_id`,`topic`,`user_a_id`,`takeaway_id`,`timestamp`) VALUES
 (3,3,'My code sux',null,null,'2020-07-26 17:55:20');
 
 INSERT INTO `TAKEAWAYS` (`id`,`topic`,`date`,`takeaway`,`user_id`,`user_A_id`) VALUES

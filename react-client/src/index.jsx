@@ -38,7 +38,7 @@ class App extends React.Component {
     window.open(`https://github.com/login/oauth/authorize?client_id=${clientId}&scope=${scopes}`, '_self');
   }
 
-  getUserSession() { // get a user if they have a session
+  getUserSession() {  // get a user if they have a session
     this.hitServer('/session')
       .then(userObj => {
         if(userObj.user.length) {
@@ -48,14 +48,14 @@ class App extends React.Component {
         }
       })
       .catch(err => {
-        debugger;
+//        debugger;
         console.error('we have an error ', err);
       });
   }
 
   displayUsers() {
     this.hitServer('/users')
-    .then(users => { // expect users to be an array of user objects
+    .then(users => {// expect users to be an array of user objects
         console.log('these are the results ', users);
         this.setState({
           users: users
