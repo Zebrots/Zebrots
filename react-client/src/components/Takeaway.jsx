@@ -6,7 +6,7 @@ const Takeaway = ({takeaway}) => (
       <span> <strong>We investigated:</strong> {takeaway.topic}</span>
       <span className="mdl-list__item-text-body">
         <div><strong>What we learned:</strong>      {takeaway.takeaway}</div>
-        <div><strong>Collaborators:</strong> {takeaway.usernameQ + ', ' + takeaway.usernameA}</div>
+        <div><strong>Collaborators:</strong> {takeaway.inviter + ', ' + takeaway["collaborator"]}</div>
         <div><strong>Date:</strong>                 {takeaway.date}</div>
       </span>
     </span>
