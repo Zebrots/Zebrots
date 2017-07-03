@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "a shared experience",
   "main": "index.js",
+  "engines": {
+    "node": "7.8.0"
+  },
   "dependencies": {
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",
