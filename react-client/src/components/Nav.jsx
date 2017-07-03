@@ -1,9 +1,7 @@
 import React from 'react';
 
 const Nav = ({nav}) => (
-  <div className="mdl-layout__header-row">
-    <span className="mdl-layout-title">Gravitas</span>
-    <div className="mdl-layout-spacer"></div>
+  <div>
     <nav className="mdl-navigation">
       <a className="mdl-navigation__link" onClick={nav.showModal}>Post</a>
       <a className="mdl-navigation__link" onClick={nav.displayTopics}> Display Topics</a>

@@ -165,11 +165,18 @@ class App extends React.Component {
   render () {
     return (
       <div>
-        <div className="mdl-layout mdl-js-layout">
+        <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-desktop-drawer-button">
           <header className="layout-transparent mdl-layout__header mdl-layout__header--waterfall">
-              <Nav nav={this}/>
+            <div className="mdl-layout__header-row">
+              <span className="mdl-layout-title">Gravitas</span>
+              <div className="mdl-layout-spacer"></div>
+              <span id="row">
+                <Nav nav={this} />
+              </span>
+            </div>
           </header>
           <div className="mdl-layout__drawer">
+            <span className="mdl-layout-title">Gravitas</span>
             <Nav nav={this}/>
           </div>
           <main className="mdl-layout__content">

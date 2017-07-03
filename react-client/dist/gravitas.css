@@ -2,11 +2,17 @@
   background: url('imgs/77s.jpg') center/cover;
 
 }
-.layout-transparent .mdl-layout__header,
-.layout-transparent .mdl-layout__drawer-button {
-  /* This background is dark, so we set text to white. Use 87% black instead if
-     your background is light. */
-  color: #333333;
+
+
+
+@media only screen and (max-width: 768px) {
+  #row {
+    display: none;
+  }
+}
+
+.material-icons {
+  color: white;
 }
 
 .mdl-layout__header-row {
