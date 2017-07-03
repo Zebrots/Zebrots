@@ -16,7 +16,7 @@
   
   > Second, when a student is browsing currently-open invites, the identity of the student who created the invite is not displayed. Only when a student chooses to *respond* to the invite is the identity revealed. Because of this, a student can post an invite without worrying about what others may think of them for doing so.
   
-  > Then, as an additional resource for students, each invite to which someone responds requires the user to post a brief 'take-away', which is stored in the database and is then permanently searchable by other students based on tags associated with each take-away. In some cases, these take-aways may be all the help a student needs.
+  > Then, as additional resources for students, each invite to which someone responds requires the user to post a brief 'take-away', which is stored in the database and is then permanently searchable by other students based on tags associated with each take-away. In some cases, these take-aways may be all the help a student needs. Also, students can create public 'events' which are invitations to further study in a group. (e.g. 'I want to understand recursion better, join me at 8PM at the whiteboards if you feel the same!')
 
 ## WHAT WE THINK ##
   > "After the release of Gravitas, the degree of synergy experienced by Hack-Reactor cohorts will cause them to sublime into the celestial aether!" - Reuben Nahouraii, CKO, Zebrots International
