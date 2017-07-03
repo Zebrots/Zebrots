@@ -12,11 +12,11 @@
 ## HOW IT DOES ##
   > The obvious benefit is that of increasing the amount of general help and interaction available to students. But in two disctinct ways, Gravitas also greatly reduces the social inhibitions many students feel when asking for someone to join in their effort to solve a problem or understand something:
   
-  First, since no one is asked for help directly, no one needs to overcome the inhibition of walking up to someone and interrupting them. Instead, a student simply writes an "Invite" and posts it. If someone decides to respond, both students know that the other *chose* to join the current inquiry. 
+  > First, since no one is asked for help directly, no one needs to overcome the inhibition of walking up to someone and interrupting them. Instead, a student simply writes an "Invite" and posts it. If someone decides to respond, both students know that the other *chose* to join the current inquiry. 
   
-  Second, when a student is browsing currently-open invites, the identity of the student who created the invite is not displayed. Only when a student chooses to *respond* to the invite is the identity revealed. Because of this, a student can post an invite without worrying about what others may think of them for doing so.
+  > Second, when a student is browsing currently-open invites, the identity of the student who created the invite is not displayed. Only when a student chooses to *respond* to the invite is the identity revealed. Because of this, a student can post an invite without worrying about what others may think of them for doing so.
   
-  Then, as an additional resource for students, each invite to which someone responds requires the user to post a brief 'take-away', which is stored in the database and is then permanently searchable by other students based on tags associated with each take-away. In some cases, these take-aways may be all the help a student needs.
+  > Then, as an additional resource for students, each invite to which someone responds requires the user to post a brief 'take-away', which is stored in the database and is then permanently searchable by other students based on tags associated with each take-away. In some cases, these take-aways may be all the help a student needs.
 
 ## WHAT WE THINK ##
   > "After the release of Gravitas, the degree of synergy experienced by Hack-Reactor cohorts will cause them to sublime into the celestial aether!" - Reuben Nahouraii, CKO, Zebrots International
